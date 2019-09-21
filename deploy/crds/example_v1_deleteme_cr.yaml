@@ -1,0 +1,7 @@
+apiVersion: example.com/v1
+kind: DeleteMe
+metadata:
+  name: example-deleteme
+spec:
+  # Add fields here
+  size: 3
