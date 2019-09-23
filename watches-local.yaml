@@ -1,0 +1,5 @@
+---
+- version: v1
+  group: ""
+  kind: Service
+  playbook: /Users/shawnhurley/repos/ansiblefest/annotation-operator/playbook.yaml

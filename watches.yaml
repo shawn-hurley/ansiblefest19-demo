@@ -1,5 +1,5 @@
 ---
 - version: v1
-  group: example.com
-  kind: DeleteMe
+  group: ""
+  kind: Service
   role: /opt/ansible/roles/deleteme

@@ -1,0 +1,25 @@
+---
+# tasks file for deleteme
+#
+- name: get service
+  set_fact:
+    service: "{{ lookup('k8s', kind='Service', namespace=meta.namespace, resource_name=meta.name) }}"
+
+- name: get ingress
+  when: service.metadata.annotations is defined and service.metadata.annotations['example.com/ingress']
+  set_fact:
+    ingress: "{{ lookup('k8s', api_version='extensions/v1beta1', kind='Ingress', namespace=meta.namespace, resource_name=service.metadata.annotations['example.com/ingress']) }}"
+
+- name: get template
+  when: service.metadata.annotations is defined and service.metadata.annotations['example.com/ingress']
+  set_fact:
+    template: "{{ lookup('template', 'ingress.yml.j2') }}"
+
+- debug: var=template
+  when: service.metadata.annotations is defined and service.metadata.annotations['example.com/ingress']
+
+- name: create ingress when service annotation
+  when: service.metadata.annotations is defined and service.metadata.annotations['example.com/ingress']
+  k8s:
+    state: present
+    definition: "{{ template }}"
